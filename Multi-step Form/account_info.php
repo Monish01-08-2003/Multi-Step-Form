@@ -11,8 +11,8 @@ $conn=new mysqli($servername,$username,$password,$dbname);
 
 $username=$_POST['username']??"";
 $password=$_POST['pwd']??"";
-$fname=$_POST['fname']??"";
-$lname=$_POST['lname']??"";
+$fname=$_POST['fname'];
+$lname=$_POST['lname'];
 $email=$_POST['email']??"";
 $phno=$_POST['phno']??"";
 $zipcode=$_POST['zipcode']??"";
@@ -22,11 +22,13 @@ $cvc=$_POST['cvc']??"";
 $cardholder=$_POST['cardholdername']??"";
 $gender=$_POST['gender']??"";
 $address=$_POST['address']??'';
-$hashpwd=password_hash($password,PASSWORD_BCRYPT);
+$hashpwd=password_hash($password,PASSWORD_BCRYPT)??'';
+
+
 $sql="INSERT INTO account_info(username,Password,gender,fname,lname,email,cardtype,cardnum,cvc,phno,zipcode,address,cardholder) 
 VALUES('$username','$hashpwd','$gender','$fname','$lname','$email','$cardtype','$cardnumber','$cvc','$phno','$zipcode','$address','$cardholder');";
 $result=$conn->query($sql);
-
+$conn->error;
 if($result)
 {    
 ?>
